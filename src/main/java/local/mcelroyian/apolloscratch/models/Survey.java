@@ -1,5 +1,8 @@
 package local.mcelroyian.apolloscratch.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -16,6 +19,8 @@ public class Survey {
     @ManyToOne
     @JoinColumn(name = "topicid",
                 nullable = false)
+    @JsonIgnoreProperties(value = "surveys")
+    @JsonIgnore
     private Topic topic;
 
     public Survey() {
@@ -52,10 +57,9 @@ public class Survey {
 
     @Override
     public String toString() {
-        return "Survey{" +
+        return "{" +
                 "surveyid=" + surveyid +
                 ", date='" + date + '\'' +
-                ", topic=" + topic +
                 '}';
     }
 }

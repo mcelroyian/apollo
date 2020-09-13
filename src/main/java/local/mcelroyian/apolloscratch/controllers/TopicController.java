@@ -22,6 +22,9 @@ public class TopicController {
         List<Topic> topics = new ArrayList<>();
 
         topicRepo.findAll().iterator().forEachRemaining(topics::add);
+        for(Topic t : topics) {
+            System.out.println(t);
+        }
 
         return new ResponseEntity<>(topics, HttpStatus.OK);
     }

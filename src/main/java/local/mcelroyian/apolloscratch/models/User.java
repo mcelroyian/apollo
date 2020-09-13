@@ -1,5 +1,7 @@
 package local.mcelroyian.apolloscratch.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +22,19 @@ public class User {
     @OneToMany(mappedBy = "owner",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    private List<Topic> topics = new ArrayList<>();
+    @JsonIgnoreProperties({"owner", "members"})
+    private List<Topic> leadertopics = new ArrayList<>();
 
-
+    @ManyToMany(mappedBy = "members")
+    @JsonIgnoreProperties("members")
+    private List<Topic> membertopics = new ArrayList<>();
 
 
     public User() {
+    }
+
+    public User(String name) {
+        this.name = name;
     }
 
     public User(String name, String email) {
@@ -60,12 +69,16 @@ public class User {
         this.email = email;
     }
 
-    public List<Topic> getTopics() {
-        return topics;
+    public void setLeadertopics(List<Topic> leadertopics) {
+        this.leadertopics = leadertopics;
     }
 
-    public void setTopics(List<Topic> topics) {
-        this.topics = topics;
+    public List<Topic> getMembertopics() {
+        return membertopics;
+    }
+
+    public void setMembertopics(List<Topic> membertopics) {
+        this.membertopics = membertopics;
     }
 
     @Override
@@ -74,7 +87,8 @@ public class User {
                 "userid=" + userid +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", topics=" + topics +
+                ", leadertopics=" + leadertopics +
+                ", membertopics=" + membertopics +
                 '}';
     }
 }
