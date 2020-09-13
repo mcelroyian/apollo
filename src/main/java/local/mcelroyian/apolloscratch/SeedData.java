@@ -43,7 +43,7 @@ public class SeedData implements CommandLineRunner {
 
         t1 = topicService.save(t1);
         t2 = topicService.save(t2);
-        t3 = topicService.save(t2);
+        t3 = topicService.save(t3);
 
         Survey s1 = new Survey("2020:12:01", t2);
         Survey s2 = new Survey("2020:12:02", t2);

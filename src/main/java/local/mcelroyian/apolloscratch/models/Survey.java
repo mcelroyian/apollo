@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "surveys")
@@ -22,6 +24,12 @@ public class Survey {
     @JsonIgnoreProperties(value = "surveys")
     @JsonIgnore
     private Topic topic;
+
+    @OneToMany(mappedBy = "survey",
+            cascade = CascadeType.ALL,
+    orphanRemoval = true)
+    @JsonIgnoreProperties(value = "survey")
+    private List<Question> questions = new ArrayList<>();
 
     public Survey() {
     }
